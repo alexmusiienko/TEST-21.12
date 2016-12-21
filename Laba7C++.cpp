@@ -4,33 +4,30 @@
 
 using namespace std;
 
-class home_appliance {
+class HomeAppliance {
 
 public:
 	string type;
 	string model;
 	string power;
-	void turnOn() {
-		cout << "Something has turned on" << endl;
-	}
+	
 	void print_options()
 	{
 		cout << "Type  : " << type << endl;
 		cout << "Model : " << model << endl;
 		cout << "Power : " << power << endl;
 	}
-	home_appliance() {}
-
-	home_appliance(string _type, string _model, string _power)
+	HomeAppliance() {}
+	HomeAppliance(string _type, string _model, string _power)
 	{
 		type = _type;
 		model = _model;
 		power = _power;
 		print_options();
 	}
-
 };
-class cleaning : public home_appliance
+
+class Cleaning : public HomeAppliance
 {
 public:
 	void main_funct()
@@ -38,7 +35,8 @@ public:
 		cout << "It can help you to clean your home!" << endl;
 	}
 };
-class media : public home_appliance{
+
+class Media : public HomeAppliance{
 public:
 	void main_funct()
 	{
@@ -46,146 +44,136 @@ public:
 	}
 };
 
-class washing_machine : public cleaning
+class WashingMachine : public Cleaning
 {
 private:
-
-	void turnOn()
-	{
-		cout << "Washing machine has turned on" << endl;
-	}
 	void wash_clothes()
 	{
 		cout << "Washing clothes" << endl;
 	}
 public:
-	washing_machine(string _type, string _model, string _power)
+	WashingMachine(string _type, string _model, string _power)
 	{
 		cout << "Options of the washing machine: " << endl;
 		main_funct();
-		home_appliance(_type, _model, _power);
-		turnOn();
+		HomeAppliance(_type, _model, _power);
 		wash_clothes();
 	}
-
 };
 
-class vacuum_cleaner : public cleaning
+class VacuumCleaner : public Cleaning
 {
 private:
-	string lenght = "6m";
-	string capacity = "3L";
+	string lenght , capacity;
 	void turnOn()
 	{
 		cout << "Vacuum cleaner has turned on" << endl;
 	}
-	void additionalOpt()
+	void additionalOption()
 	{
 		cout << "Lenght of the cable : " << lenght << endl;
 		cout << "Capacity of the cleaner: " << capacity << endl;
 	}
 public:
-
-	vacuum_cleaner(string _type, string _model, string _power)
+	VacuumCleaner(string _type, string _model, string _power, string _lenght, string _capacity)
 	{
 		cout << endl << "Options of the vacuum cleaner: " << endl;
+		lenght = _lenght;
+		capacity = _capacity;
 		main_funct();
-		home_appliance(_type, _model, _power);
+		HomeAppliance(_type, _model, _power);
 		turnOn();
-		additionalOpt();
+		additionalOption();
 	}
 };
 
-class TV : public media
+class TV : public Media
 {
 private:
-	string resolution = "1920x1560px";
-	void additionalOpt()
+	string resolution;
+	void additionalOption()
 	{
 		cout << "Screen resolution : " << resolution << endl;
 	}
 public:
-
-	TV(string _type, string _model, string _power)
+	TV(string _type, string _model, string _power, string _resolution)
 	{
 		cout << endl << "Options of the TV-set:" << endl;
+		resolution = _resolution;
 		main_funct();
-		home_appliance(_type, _model, _power);
-		additionalOpt();
+		HomeAppliance(_type, _model, _power);
+		additionalOption();
 	}
 };
 
-class tape_recorder : public media
+class TapeRecorder : public Media
 {
 private:
-	string frequency = "63...12500 Hz";
+	string frequency;
 	void addtionalOpt()
 	{
 		cout << "Frequency range : " << frequency <<  endl;
 	}
 public:
-	tape_recorder(string _type, string _model, string _power)
+	TapeRecorder(string _type, string _model, string _power, string _frequency)
 	{
 		cout << endl << "Options of the Tape recorder: " << endl;
+		frequency = _frequency;
 		main_funct();
-		home_appliance(_type, _model, _power);
+		HomeAppliance(_type, _model, _power);
 		addtionalOpt();
 	}
-
 };
 
-class radio : public media
+class Radio : public Media
 {
 private:
-	string frequency = "3..30 GHz";
-	int release_date = 1989;
+	string frequency;
 
-	void additionalOpt()
+	void additionalOption()
 	{
 		cout << "Frequency range : " << frequency << endl;
-		cout << "Date of release : " << release_date << endl;
 	}
 public:
-	radio(string _type, string _model, string _power)
+	Radio(string _type, string _model, string _power, string _frequency)
 	{
-		cout << endl <<  "Options of the radio :" << endl;
+		frequency = _frequency;
+		cout << endl <<  "Options of the Radio :" << endl;
 		main_funct();
-		home_appliance(_type, _model, _power);
-		additionalOpt();
+		HomeAppliance(_type, _model, _power);
+		additionalOption();
 	}
 };
 
-class stereo_system : public media
+class StereoSystem : public Media
 {
 private: 
-	int sound_power = 700;
-	string disk_numbers = "1...5 Disks";
-
-	void additionalOpt()
+	int sound_power;
+	string disk_numbers;
+	void additionalOption()
 	{
 		cout << "Power of sound : " << sound_power << "watt" << endl;
 		cout << "Numbers of disks : " << disk_numbers << endl;
 	}
 public:
-	stereo_system(string _type, string _model, string _power)
+	StereoSystem(string _type, string _model, string _power, int _sound_power, string _disk_numbers)
 	{
+		sound_power = _sound_power;
+		disk_numbers = _disk_numbers;
 		cout << endl << "Options of the Stereo system :" << endl;
 		main_funct();
-		home_appliance(_type, _model, _power);
-		additionalOpt();
+		HomeAppliance(_type, _model, _power);
+		additionalOption();
 	}
-
 };
 
 int main()
 {
-	washing_machine A = washing_machine("LG", "Whatever", "220V");
-	vacuum_cleaner B = vacuum_cleaner("Panasonic", "vjuh", "160V");
-	TV C = TV("Samsung", "ExtraHD", "220V");
-	tape_recorder D = tape_recorder("Sanda", "MK-201", "140V");
-	radio M = radio("Soviet", "Bear 27-D", "60V");
-	stereo_system K = stereo_system("LG", "M202", "220V");
-
+	WashingMachine A = WashingMachine("LG", "Whatever", "220V");
+	VacuumCleaner B = VacuumCleaner("Panasonic", "vjuh", "160V", "6m" , "3L");
+	TV C = TV("Samsung", "ExtraHD", "220V", "1920x1080px");
+	TapeRecorder D = TapeRecorder("Sanda", "MK-201", "140V", "63...12500 Hz");
+	Radio M = Radio("Soviet", "Bear 27-D", "60V", "3..30 GHz");
+	StereoSystem K = StereoSystem("LG", "M202", "220V", 700 , "From 1 to 5 disks");
 	system("pause");
-
 }
